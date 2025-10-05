@@ -1,0 +1,44 @@
+# Python virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- GCC / C / C++ build files ---
+*.o
+*.out
+*.obj
+*.exe
+*.a
+*.so
+*.dll
+*.dSYM/
+*.stackdump
+
+# Build and distribution folders
+build/
+dist/
+*.egg-info/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Image processing outputs
+test_output*.png
+output*.png
+results_N*.png
