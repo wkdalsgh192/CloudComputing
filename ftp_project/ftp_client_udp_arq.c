@@ -128,13 +128,21 @@ int main(int argc, char *argv[]) {
 
     printf("Sent %lld bytes via UDP\n", total_bytes);
 
-    // Send EOF marker
+
+    // Send EOF marker safely
     Packet eof_pkt;
+    memset(&eof_pkt, 0, sizeof(eof_pkt));
     eof_pkt.seq_num = seq_num;
     eof_pkt.is_eof = 1;
     eof_pkt.length = 0;
-    sendto(sockfd, &eof_pkt, sizeof(eof_pkt), 0,
-           (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+
+    for (int i = 0; i < 3; i++) {
+        sendto(sockfd, &eof_pkt, HEADER_SIZE, 0,
+            (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+        usleep(10000); // 10 ms between sends
+    }
+    printf("EOF marker sent (seq=%d)\n", seq_num);
+
 
     fclose(fp);
     close(sockfd);
