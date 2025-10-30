@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Group Chat + LLM Bot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="auth" id="auth">
+      <h1>Group Chat</h1>
+      <p>Create an account or log in to join the chat.</p>
+      <div class="row">
+        <input id="username" placeholder="Username">
+        <input id="password" placeholder="Password" type="password">
+      </div>
+      <div class="row">
+        <button id="signupBtn">Sign Up</button>
+        <button id="loginBtn">Log In</button>
+      </div>
+      <div class="hint">Hint: messages that contain a question mark “?” will trigger an LLM reply.</div>
+      <div id="authMsg" class="msg"></div>
+    </div>
+    <div class="chat hidden" id="chat">
+      <div class="header">
+        <h2>Group Chat</h2>
+        <button id="logoutBtn">Log Out</button>
+      </div>
+      <div id="messages" class="messages"></div>
+      <div class="composer">
+        <input id="chatInput" placeholder="Type a message…">
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

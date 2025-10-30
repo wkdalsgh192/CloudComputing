@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+SQLAlchemy>=2.0.0
+asyncmy
+passlib[bcrypt]
+python-jose[cryptography]
+python-dotenv
+httpx
+jinja2

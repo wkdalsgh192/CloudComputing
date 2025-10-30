@@ -1,0 +1,17 @@
+pluginManagement {
+    repositories {
+        google() // Add this line if it's missing
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google() // Add this line if it's missing
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'GroupChatTWA'
+include ':app'
