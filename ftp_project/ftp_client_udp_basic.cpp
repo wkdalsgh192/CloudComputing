@@ -1,7 +1,15 @@
 #include <iostream>
+#include <cstring>
 #include <fstream>
 #include <vector>
 #include <chrono>
+#include <atomic>
+#include <queue>
+#include <thread>
+#include <sys/socket.h>
+#include <condition_variable>
+
+#include "utils.cpp"
 
 const size_t MAX_PAYLOAD = 1400;
 
@@ -20,7 +28,7 @@ int main(int argc, char *argv[]) {
     // check args
     if (argc != 4) {
         std::cerr << "Usage: " << argv[0] << " <filename> <receiver_host> <receiver_port>\n";
-        exit(1)
+        exit(1);
     }
     const char *filename = argv[1];
 
@@ -47,6 +55,10 @@ int main(int argc, char *argv[]) {
 
     struct addrinfo hints = get_hints(false);
     struct addrinfo *serv_info;
+    if (getaddrinfo(receiver_host, receiver_port, &hints, &serv_info) != 0) {
+        std::cerr << "Sender: getaddrinfo() failed\n";
+        exit(1);
+    }   
 
     int sock_fd = connect_first(serv_info);
     if (sock_fd == -1) {
@@ -59,8 +71,8 @@ int main(int argc, char *argv[]) {
     for (uint32_t seq = 0; seq < total_chunks; ++seq) {
         // generate a packet
         Packet packet;
-        packet.seq_num = htol(seq);
-        packet.total_chunks = htol(total_chunks);
+        packet.seq_num = htonl(seq);
+        packet.total_chunks = htonl(total_chunks);
         size_t offset = seq * MAX_PAYLOAD;
         size_t chunk_size = std::min((size_t) MAX_PAYLOAD, (size_t)(file_size - offset));
         std::memcpy(packet.data, file_buffer.data() + offset, chunk_size);
